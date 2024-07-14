@@ -26,7 +26,6 @@ import io
 
 CONF_API_KEY = 'api_key'
 DEFAULT_LANG = 'en-US'
-CONF_LANG = 'de-DE'
 OPENAI_STT_URL = "https://api.openai.com/v1/audio/transcriptions"
 CONF_MODEL = 'model'
 CONF_URL = 'url'
