@@ -5,6 +5,7 @@ from typing import AsyncIterable
 import aiohttp
 import os
 import tempfile
+import logging
 import voluptuous as vol
 from homeassistant.components.tts import CONF_LANG
 from homeassistant.components.stt import (
@@ -22,6 +23,8 @@ from homeassistant.core import HomeAssistant
 import homeassistant.helpers.config_validation as cv
 import wave
 import io
+
+_LOGGER = logging.getLogger(__name__)
 
 
 CONF_API_KEY = 'api_key'
@@ -65,6 +68,9 @@ class OpenAISTTProvider(Provider):
         self._url = url
         self._prompt = prompt
         self._temperature = temperature
+        _LOGGER,
+        # Name of the data. For logging purposes.
+        name="Whisper API STT",
 
     @property
     def default_language(self) -> str:
@@ -120,7 +126,10 @@ class OpenAISTTProvider(Provider):
 
 
             url = self._url or OPENAI_STT_URL
-
+            
+            _LOGGER.debug(url)
+            _LOGGER.debug(api_key)
+            
             headers = {
                 'Authorization': f'Bearer {self._api_key}',
             }
